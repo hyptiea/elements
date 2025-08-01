@@ -1,4 +1,3 @@
-import 'https://cdnjs.cloudflare.com/ajax/libs/marked/16.1.1/lib/marked.esm.js'
 class AccordionContainer extends HTMLElement {
     constructor() {
         super();
