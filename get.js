@@ -23,7 +23,7 @@ class AccordionContainer extends HTMLElement {
             this.render(htmlContent, title);
         } catch (error) {
             console.error('Error fetching or parsing markdown:', error);
-            this.shadowRoot.innerHTML = `<div>Error loading markdown content.</div>`;
+            this.shadowRoot.innerHTML = `<div>Fehler beim Laden des Inhalts oder noch nicht vorhanden.</div>`;
         }
     }
 
