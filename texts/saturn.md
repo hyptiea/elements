@@ -1,0 +1,4 @@
+* Saturn ist der zweitgrößte Planet im Sonnensystem mit einem Durchmesser von etwa 116.460 Kilometern und einer Masse von etwa 5,68 x 10^26 Kilogramm, was etwa 95-mal so schwer wie die Erde ist.
+* Saturn ist berühmt für sein ausgeprägtes Ringsystem, das aus Eis- und Gesteinsbrocken besteht. Seine Atmosphäre besteht hauptsächlich aus Wasserstoff (H2) und Helium (He) mit Spuren von Methan, Wasser und Ammoniak. 
+* Die durchschnittliche Temperatur in den oberen Wolkenschichten beträgt etwa -178 Grad Celsius. Ein Saturn-Tag dauert etwa 10 Stunden und 33 Minuten, was ihn zu einem der schnellsten rotierenden Planeten macht. 
+* Ein Saturnjahr entspricht etwa 29,5 Erdenjahren. Die Schwerkraft auf Saturn beträgt etwa 106% der Erdschwerkraft, trotz seiner gasförmigen Beschaffenheit, aufgrund seiner enormen Masse.
