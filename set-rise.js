@@ -30,7 +30,7 @@ class PlanetRiseSet extends HTMLElement {
     }
 
     async loadAllData() {
-        const baseUrl = 'http://127.0.0.1:5500/data/astronomy/';
+        const baseUrl = 'https://hyptiea.github.io/elements/data/astronomy/';
 
         const loadPromises = this.planetData.map(async (planet, index) => {
             try {
