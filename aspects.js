@@ -1,4 +1,4 @@
-import AspectCalculator from '../astronomy/aspects.js';
+import AspectCalculator from 'https://hyptiea.github.io/elements/astronomy/aspects.js';
 
 class CurrentAspects extends HTMLElement {
     constructor(planetData) {

@@ -1,5 +1,5 @@
 
-import { calculateRiseSetTimes } from './astronomy/set-rise.js';
+import { calculateRiseSetTimes } from 'https://hyptiea.github.io/elements/astronomy/set-rise.js';
 
 class PlanetRiseSet extends HTMLElement {
     constructor() {
