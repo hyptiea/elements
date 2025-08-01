@@ -124,8 +124,8 @@ class PlanetRiseSet extends HTMLElement {
                         <div>
                             <strong>${planet.name}</strong>
                             <p>
-                            Rise: ${this.formatTime(riseSet?.rise)} </p>
-                           <p> Set: ${this.formatTime(riseSet?.set)}</p>
+                            <a href="https://hypteia.bearblog.dev/${planet.name.toLowerCase()}aufgang">Aufgang:</a> ${this.formatTime(riseSet?.rise)} </p>
+                           <p>  <a href="https://hypteia.bearblog.dev/${planet.name.toLowerCase()}untergang">Untergang:</a>${this.formatTime(riseSet?.set)}</p>
                         </div>
                     `;
         });
@@ -156,6 +156,14 @@ class PlanetRiseSet extends HTMLElement {
                         div {
                             margin: 5px 0;
                         }
+                            a {
+                            color: inherit;
+                            
+                            }
+                            a:visited {
+                            color: inherit;
+                            
+                            }
 
                         * {
                         padding: 0;
