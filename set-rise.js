@@ -133,10 +133,9 @@ class PlanetRiseSet extends HTMLElement {
 
     formatTime(date) {
         if (!date) return 'N/A';
-        return date.toLocaleTimeString('en-US', {
+        return date.toLocaleTimeString('de-DE', {
             hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
+            minute: '2-digit'
         });
     }
 
