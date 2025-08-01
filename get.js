@@ -13,7 +13,7 @@ class AccordionContainer extends HTMLElement {
         }
 
         try {
-            const response = await fetch('./texts/' + filename + '.md');
+            const response = await fetch('/texts/' + filename + '.md');
             if (!response.ok) throw new Error('Failed to fetch markdown');
 
             const markdown = await response.text();
