@@ -41,7 +41,6 @@ class PlanetRiseSetViewer extends HTMLElement {
                 }
 
                 .error {
-                    background: #f8f8f8;
                     color: #666;
                     padding: 15px;
                     border-radius: 4px;
@@ -58,7 +57,6 @@ class PlanetRiseSetViewer extends HTMLElement {
                 }
 
                 .planet-row {
-                    background: white;
                     padding: 16px 20px;
                     display: grid;
                     grid-template-columns: 1fr 80px 80px 120px;
