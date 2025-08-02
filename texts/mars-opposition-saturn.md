@@ -1,4 +1,0 @@
-* Mars und Saturn erscheinen in entgegengesetzten Richtungen am Himmel. Wenn Mars im Osten aufgeht, geht Saturn im Westen unter, oder umgekehrt.
-* Beide Planeten können gleichzeitig am Himmel sichtbar sein, jedoch in entgegengesetzten Richtungen. Dies kann zu einer faszinierenden Beobachtung führen, da beide Planeten in einer Nacht gesehen werden können.
-* Mars erscheint rötlich, während Saturn eine eher gelbliche oder goldene Farbe hat. Diese unterschiedlichen Farbtöne können bei der Beobachtung auffallen, insbesondere wenn beide Planeten gleichzeitig sichtbar sind.
-* In dieser Konstellation stehen Mars und Saturn auf gegenüberliegenden Seiten des Himmels. Wenn Mars aufgeht, geht Saturn unter und umgekehrt. Dies ermöglicht die Beobachtung beider Planeten im Laufe einer Nacht.
