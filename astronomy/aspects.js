@@ -126,7 +126,14 @@ class AstronomicalCalculations {
 class AspectCalculator {
 planetData = {}
 
-  constructor() {
+constructor() {
+    this.planetData = {};
+
+    // Feste Reihenfolge der Planeten (astrologisch sinnvoll)
+    this.planetOrder = [
+      'Sonne', 'Mond', 'Merkur', 'Venus', 'Mars', 
+      'Jupiter', 'Saturn', 'Uranus', 'Neptun', 'Pluto'
+    ];
 
     this.planetSymbols = {
       Sonne: '☉\uFE0E', Mond: '☽\uFE0E', Merkur: '☿\uFE0E', Venus: '♀\uFE0E', Mars: '♂\uFE0E',
@@ -136,17 +143,21 @@ planetData = {}
     this.outerPlanets = ['Jupiter', 'Saturn', 'Uranus', 'Neptun', 'Pluto'];
   }
 
-  // Hauptmethode zur Berechnung aller Aspekte für einen Zeitpunkt
-  calculateAspectsForDate(isoDateTime) {
+ calculateAspectsForDate(isoDateTime) {
     const aspects = [];
-    const planetNames = Object.keys(this.planetData);
+
+    // Verwende die feste Reihenfolge statt Object.keys()
+    const availablePlanets = this.planetOrder.filter(planet => 
+      this.planetData[planet] && this.planetData[planet].length > 0
+    );
+
     const positions = this.getAllPlanetPositions(isoDateTime);
 
     // Alle Planetenkombinationen durchgehen
-    for (let i = 0; i < planetNames.length; i++) {
-      for (let j = i + 1; j < planetNames.length; j++) {
-        const planet1 = planetNames[i];
-        const planet2 = planetNames[j];
+    for (let i = 0; i < availablePlanets.length; i++) {
+      for (let j = i + 1; j < availablePlanets.length; j++) {
+        const planet1 = availablePlanets[i];
+        const planet2 = availablePlanets[j];
 
         if (!positions[planet1] || !positions[planet2]) continue;
 
@@ -164,6 +175,7 @@ planetData = {}
     // Sortierung nach Exaktheit (kleinster Orb zuerst)
     return aspects.sort((a, b) => a.orb - b.orb);
   }
+
 
   // Berechnung aller Planetenpositionen für einen Zeitpunkt
   getAllPlanetPositions(isoDateTime) {
