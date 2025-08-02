@@ -1,7 +1,7 @@
-import PlanetaryMotionAnalyzer from 'https://hyptiea.github.io/elements/astronomy/motion.js';
+import AspectCalculator from './astronomy/motion.js';
 
 class CurrentAspects extends HTMLElement {
-    constructor(planetData) {
+    constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.aspectCalculator = new AspectCalculator();
@@ -17,76 +17,12 @@ class CurrentAspects extends HTMLElement {
         this.hideLoading();
     }
 
-    async loadAllData() {
-        const planetFiles = {
-            Sonne: 'sun.json',
-            Mond: 'moon.json',
-            Merkur: 'mercury.json',
-            Venus: 'venus.json',
-            Mars: 'mars.json',
-            Jupiter: 'jupiter.json',
-            Saturn: 'saturn.json',
-            Uranus: 'uranus.json'
-        };
-
-        const baseUrl = 'https://hyptiea.github.io/elements/data/astronomy/';
-
-        const loadPromises = Object.entries(planetFiles).map(async ([planet, file]) => {
-            try {
-                const response = await fetch(baseUrl + file);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const data = await response.json();
-                this.aspectCalculator.planetData[planet] = data;
-            } catch (error) {
-                console.error(`Failed to load ${planet}:`, error);
-                try {
-                    const altResponse = await fetch(`https://hyptiea.github.io/elements/data/astronomy/${file}`);
-                    if (altResponse.ok) {
-                        const data = await altResponse.json();
-                        this.aspectCalculator.planetData[planet] = data;
-                    }
-                } catch (altError) {
-                    console.error(`Alternative path failed for ${planet}:`, altError);
-                }
-            }
-        });
-
-        await Promise.all(loadPromises);
-    }
-
-    calculateCurrentAspects() {
-        const now = new Date().toISOString();
-        const aspects = this.aspectCalculator.calculateAspectsForDate(now);
-        this.displayAspects(aspects);
-    }
-
-    displayAspects(aspects) {
-        const aspectList = this.shadowRoot.querySelector('#aspect-list');
-
-        if (aspects.length === 0) {
-            aspectList.innerHTML = '<div>No major aspects found</div>';
-            return;
-        }
-
-        aspectList.innerHTML = aspects.map(aspect => `
-                    <a href="https://hypteia.bearblog.dev/${aspect.planet1.toLowerCase()}-${aspect.aspect.toLowerCase()}-${aspect.planet2.toLowerCase()}">
-                        ${aspect.planet1} ${aspect.aspect}  ${aspect.planet2}
-                        (${aspect.orb.toFixed(1)}°)
-                        ${aspect.exact ? ' - Exakt' : ''}
-                    </div>
-                `).join('');
-    }
-
-    showLoading() {
-        const aspectList = this.shadowRoot.querySelector('#aspect-list');
-        aspectList.innerHTML = '<div>Lade Aspekte...</div>';
-    }
-
-    hideLoading() {
-        // Loading text will be replaced by aspect data
-    }
 
     render() {
+        const calc = new AspectCalculator()
+        console.log(calc);
+        
+        //const data = calc.analyzePlanetMotion('saturn')
         this.shadowRoot.innerHTML = `
                     <style>
                         :host {
@@ -110,10 +46,12 @@ class CurrentAspects extends HTMLElement {
                         }
                     </style>
 
-                    <h3>Konjunktionen und Oppositionen</h3>
-                    <div id="aspect-list"></div>
+                    <h3>Rückläufigkeit</h3>
+                    <div>
+                        ${JSON.stringify(data)}
+                    </div>
                 `;
     }
 }
 
-customElements.define('current-aspects', CurrentAspects);
+customElements.define('current-retrograde', CurrentAspects);
