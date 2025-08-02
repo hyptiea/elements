@@ -8,11 +8,6 @@ const MAJOR_ASPECTS = {
     angle: 180, 
     orb: { default: 5, sun: 5,  moon: 5, outer: 5},
     symbol: '☍'
-  },
-    Quadratur: { 
-    angle: 90, 
-    orb: { default: 5, sun: 5, moon: 5, outer: 5 },
-    symbol: '□'
   }
 };
 
