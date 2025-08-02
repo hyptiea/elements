@@ -16,7 +16,8 @@
 
 - **Dichte**: Saturn hat die geringste Dichte aller Planeten im Sonnensystem und ist weniger dicht als Wasser, was bedeutet, dass er theoretisch auf Wasser schwimmen könnte.
 
-### Historisches
+**Historisches** 
+
 - **Antike Beobachtungen**: Saturn ist einer der fünf Planeten, die mit bloßem Auge sichtbar sind, und wurde daher von antiken Zivilisationen beobachtet. Die frühesten Aufzeichnungen stammen von den Babyloniern, die Saturn als "Stern des Ninib" bezeichneten.
 
 - **Römische Mythologie**: Der Planet ist nach dem römischen Gott des Ackerbaus und der Ernte, Saturn, benannt. In der griechischen Mythologie entspricht er dem Titanen Kronos.

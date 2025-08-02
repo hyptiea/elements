@@ -16,7 +16,7 @@
 
 - **Einfluss auf das Sonnensystem**: Aufgrund seiner Größe und Masse hat Jupiter einen erheblichen Einfluss auf die Dynamik des Sonnensystems, einschließlich der Abwehr von Kometen und Asteroiden.
 
-### Historisches
+**Historisches**  
 
 - **Antike Beobachtungen**: Jupiter ist einer der fünf Planeten, die mit bloßem Auge sichtbar sind, und wurde daher von antiken Zivilisationen beobachtet. Die Babylonier waren eine der ersten Kulturen, die Jupiter systematisch dokumentierten.
 

@@ -16,7 +16,8 @@
 
 - **Erforschung**: Mehrere Raumfahrtmissionen haben die Venus besucht, darunter die Magellan-Mission der NASA, die detaillierte Karten der Venusoberfläche erstellt hat.
 
-### Historisches
+**Historisches** 
+
 - **Antike Beobachtungen**: Die Venus ist einer der hellsten Objekte am Nachthimmel und war daher schon in der Antike bekannt. Sie wurde von vielen frühen Zivilisationen beobachtet und aufgezeichnet, darunter die Babylonier, die Ägypter und die Mayas.
 
 - **Römische Mythologie**: Der Planet ist nach der römischen Göttin der Liebe und Schönheit, Venus, benannt. In der griechischen Mythologie entspricht sie der Göttin Aphrodite.

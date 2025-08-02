@@ -16,7 +16,8 @@
 
 - **Keine Monde**: Merkur hat keine natürlichen Satelliten oder Monde.
 
-### Historisches
+**Historisches** 
+
 - **Antike Beobachtungen**: Merkur ist einer der fünf mit bloßem Auge sichtbaren Planeten und wurde bereits von antiken Zivilisationen wie den Sumerern um 3000 v. Chr. beobachtet.
 
 - **Römische Mythologie**: Der Planet ist nach dem römischen Gott Merkur benannt, dem geflügelten Boten der Götter, aufgrund seiner schnellen Bewegung am Himmel.

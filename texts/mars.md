@@ -18,7 +18,8 @@
 
 - **Potenzial für Leben**: Der Mars ist ein Hauptziel für die Suche nach außerirdischem Leben, sowohl in der Vergangenheit als auch in der Gegenwart, aufgrund seiner potenziell lebensfreundlichen Bedingungen.
 
-### Historisches
+**Historisches**  
+
 - **Antike Beobachtungen**: Der Mars ist einer der fünf Planeten, die mit bloßem Auge sichtbar sind, und wurde daher von antiken Zivilisationen beobachtet. Die frühesten Aufzeichnungen stammen von den Ägyptern, die den Mars um 1534 v. Chr. dokumentierten.
 
 - **Römische Mythologie**: Der Planet ist nach dem römischen Kriegsgott Mars benannt. In der griechischen Mythologie entspricht er dem Gott Ares.

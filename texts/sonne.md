@@ -15,7 +15,8 @@
 - **Einfluss auf die Erde**: Die Sonne beeinflusst das Klima der Erde, die Wetterbedingungen und ermöglicht durch Photosynthese das Leben von Pflanzen.
 
 
-### Historisches
+**Historisches** 
+
 - **Verehrung und Mythologie**: In vielen antiken Kulturen wurde die Sonne als Gottheit verehrt. Beispiele sind Ra im alten Ägypten, Helios in der griechischen Mythologie und Surya im Hinduismus.
 
 - **Kalenderentwicklung**: Die Beobachtung der Sonne war entscheidend für die Entwicklung von Kalendern. Zivilisationen wie die Maya und die Ägypter nutzten Sonnenkalender zur Zeitmessung und Planung.
