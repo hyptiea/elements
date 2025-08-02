@@ -37,11 +37,9 @@ class PlanetRiseSetViewer extends HTMLElement {
             <style>
                 .loading {
                     padding: 40px;
-                    color: #666;
                 }
 
                 .error {
-                    color: #666;
                     padding: 15px;
                     border-radius: 4px;
                     margin: 20px 0;
@@ -64,12 +62,7 @@ class PlanetRiseSetViewer extends HTMLElement {
                 }
 
                 .time-value {
-                    color: #666;
                     text-align: center;
-                }
-
-                .time-value.none {
-                    color: #999;
                 }
 
                 .status {
@@ -90,7 +83,7 @@ class PlanetRiseSetViewer extends HTMLElement {
 
                 .header-row {
                     font-weight: bold;
-                    color: #555;                }
+                                  }
 
                 @media (max-width: 600px) {
                     .planet-row {
