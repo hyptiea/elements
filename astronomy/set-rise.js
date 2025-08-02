@@ -12,7 +12,7 @@ function calculateJulianDate(year, month, day) {
 
     return JD;
 }
-function calculateRiseSetTimes(ra, dec, latitude, date, longitude = 7.5) { // Korrigierter Standardwert
+function calculateRiseSetTimes(ra, dec, latitude, date, longitude) {
     // Hour angle in radians
     const H_rad = calcHourAngle(dec, latitude);
     if (H_rad === null) {
@@ -25,44 +25,51 @@ function calculateRiseSetTimes(ra, dec, latitude, date, longitude = 7.5) { // Ko
     // Calculate transit time (when object crosses meridian)
     const transitTime = calculateTransitTime(ra, date, longitude);
 
-    // Rise and set times
-    const riseTime = new Date(transitTime.getTime() - H_hours * 3600000); // H hours before transit
-    const setTime = new Date(transitTime.getTime() + H_hours * 3600000);  // H hours after transit
+    // Rise and set times (in UTC)
+    const riseTime = new Date(transitTime.getTime() - H_hours * 3600000);
+    const setTime = new Date(transitTime.getTime() + H_hours * 3600000);
 
-    return { rise: riseTime, set: setTime };
+    return { 
+        rise: riseTime, 
+        set: setTime,
+        transit: transitTime 
+    };
 }
 
+
 function calculateTransitTime(ra, date, longitude) {
-    // Calculate JD for noon of the given date
-    const noon = new Date(date);
-    noon.setHours(12, 0, 0, 0);
+    // Calculate JD for 0h UT of the given date
+    const utcDate = new Date(date);
+    utcDate.setUTCHours(0, 0, 0, 0);
 
-    const year = noon.getFullYear();
-    const month = noon.getMonth() + 1;
-    const day = noon.getDate();
-    const JD = calculateJulianDate(year, month, day) + 0.5; // JD at noon
+    const year = utcDate.getUTCFullYear();
+    const month = utcDate.getUTCMonth() + 1;
+    const day = utcDate.getUTCDate();
+    const JD0 = calculateJulianDate(year, month, day);
 
-    // Calculate GMST at 0h UT
-    const JD0 = Math.floor(JD - 0.5) + 0.5;
+    // Calculate GMST at 0h UT (in hours)
     const GMST0 = calculateGMST(JD0);
 
-    // Calculate when LST = RA (transit time)
-    let transitLST = ra;
+    // *** FIX: Convert RA from degrees to hours before calculation ***
+    const ra_hours = ra / 15;
 
-    // Convert LST to UT
-    let transitUT = (transitLST - GMST0 - longitude / 15) * 0.9972695663;
+    // Calculate when LST = RA to find transit time in UT
+    // The formula is UT = (RA - GMST0 - Longitude) corrected for sidereal time
+    let transitUT = (ra_hours - GMST0 - longitude / 15) / 1.002737909;
 
-    // Normalize to 0-24
+    // Normalize to 0-24 hours
     while (transitUT < 0) transitUT += 24;
     while (transitUT >= 24) transitUT -= 24;
 
-    // Create transit time
-    const transitTime = new Date(date);
+    // Create transit time in UTC
+    const transitTime = new Date(utcDate);
+    // Use setUTCHours with fractional hours for better precision before converting
     transitTime.setUTCHours(0, 0, 0, 0);
     transitTime.setTime(transitTime.getTime() + transitUT * 3600000);
 
     return transitTime;
 }
+
 
 function calculateGMST(julianDate) {
     const T = (julianDate - 2451545.0) / 36525.0;
@@ -99,8 +106,16 @@ function lstToLocalTime(lst, date, longitude = 0, gmst0) {
 
 
 
-function calcHourAngle(dec, latitude) {
-    const h0 = toRadians(-0.833); // Standard refraction at horizon
+function calcHourAngle(dec, latitude, objectType = 'planet') {
+    // Different refraction corrections
+    const refractionCorrections = {
+        'sun': -0.833,      // Standard solar refraction
+        'moon': -0.7,       // Moon's varying size
+        'planet': -0.567,   // Point source
+        'star': -0.567      // Point source
+    };
+
+    const h0 = toRadians(refractionCorrections[objectType] || -0.567);
     const decRad = toRadians(dec);
     const latRad = toRadians(latitude);
 
@@ -108,12 +123,12 @@ function calcHourAngle(dec, latitude) {
         / (Math.cos(decRad) * Math.cos(latRad));
 
     if (Math.abs(cosH) > 1) {
-        return null; // Object is circumpolar or never visible
+        return null;
     }
 
-    const H = Math.acos(cosH);
-    return H;
+    return Math.acos(cosH);
 }
+
 
 export {
     calculateRiseSetTimes,

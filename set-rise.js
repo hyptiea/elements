@@ -1,5 +1,5 @@
 
-import { calculateRiseSetTimes } from 'https://hyptiea.github.io/elements/astronomy/set-rise.js';
+import { calculateRiseSetTimes } from './astronomy/set-rise.js';
 
 class PlanetRiseSet extends HTMLElement {
     constructor() {
@@ -131,13 +131,17 @@ class PlanetRiseSet extends HTMLElement {
         });
     }
 
-    formatTime(date) {
-        if (!date) return 'N/A';
-        return date.toLocaleTimeString('de-DE', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
+   formatTime(date) {
+    if (!date || typeof date === 'string') return date || 'N/A';
+
+    // Convert UTC time to local time for display
+    return date.toLocaleTimeString('de-DE', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Zurich' // Or your local timezone
+    });
+}
+
 
     showLoading() {
         const planetList = this.shadowRoot.querySelector('#planet-list');
