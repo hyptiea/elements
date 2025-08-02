@@ -25,8 +25,7 @@ class CurrentAspects extends HTMLElement {
             Venus: 'venus.json',
             Mars: 'mars.json',
             Jupiter: 'jupiter.json',
-            Saturn: 'saturn.json',
-            Uranus: 'uranus.json'
+            Saturn: 'saturn.json'
         };
 
         const baseUrl = 'https://hyptiea.github.io/elements/data/astronomy/';
