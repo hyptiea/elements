@@ -6,8 +6,13 @@ const MAJOR_ASPECTS = {
   },
   Opposition: { 
     angle: 180, 
-    orb: { default: 10, sun: 10, moon: 10, outer: 10 },
+    orb: { default: 5, sun: 5,  moon: 5, outer: 5},
     symbol: '☍'
+  },
+    Quadratur: { 
+    angle: 90, 
+    orb: { default: 5, sun: 5, moon: 5, outer: 5 },
+    symbol: '□'
   }
 };
 
