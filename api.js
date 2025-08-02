@@ -21,7 +21,7 @@ class ApiDataDisplay extends HTMLElement {
             })
             .then(data => {
                 // Display the fetched data as a bold string
-                this.shadowRoot.innerHTML = `<strong>${JSON.stringify(data.constellation)}</strong>`;
+                this.shadowRoot.innerHTML = `<strong>${data.constellation}</strong>`;
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
