@@ -1,9 +1,9 @@
-import mercury from 'https://hyptiea.github.io/elements/data/astronomy/mercury.json';
-import venus from 'https://hyptiea.github.io/elements/data/astronomy/venus.json';
-import mars from 'https://hyptiea.github.io/elements/data/astronomy/mars.json';
-import jupiter from 'https://hyptiea.github.io/elements/data/astronomy/jupiter.json';
-import saturn from 'https://hyptiea.github.io/elementsdata/astronomy/saturn.json';
-import uranus from 'https://hyptiea.github.io/elements/data/astronomy/uranus.json';
+import mercury from 'https://hyptiea.github.io/elements/data/astronomy/mercury.json?raw';
+import venus from 'https://hyptiea.github.io/elements/data/astronomy/venus.json?raw';
+import mars from 'https://hyptiea.github.io/elements/data/astronomy/mars.json?raw';
+import jupiter from 'https://hyptiea.github.io/elements/data/astronomy/jupiter.json?raw';
+import saturn from 'https://hyptiea.github.io/elements/data/astronomy/saturn.json?raw';
+import uranus from 'https://hyptiea.github.io/elements/data/astronomy/uranus.json?raw';
 
 class PlanetaryMotionAnalyzer {
   constructor(planetData) {
