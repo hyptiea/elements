@@ -87,9 +87,9 @@ class PlanetRiseSetViewer extends HTMLElement {
 
                 @media (max-width: 600px) {
                     .planet-row {
-                        grid-template-columns: 1fr 70px 70px 90px;
-                        gap: 10px;
-                        padding: 12px 15px;
+                         grid-template-columns: 1fr 70px 96px 90px;
+                         gap: 10px;
+                         padding: 12px 0px;
                     }
                 }
 
