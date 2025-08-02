@@ -55,7 +55,7 @@ class PlanetRiseSetViewer extends HTMLElement {
                 }
 
                 .planet-row {
-                    padding: 12px 5px;
+                    padding: 12px 0;
                     display: grid;
                     grid-template-columns: 1fr 80px 80px 120px;
                     gap: 8px;
@@ -67,7 +67,7 @@ class PlanetRiseSetViewer extends HTMLElement {
 
                 .status {
                     text-align: center;
-                    padding: 2px 4px;
+                    padding: 0;
                     border-radius: 12px;
                 }
 
