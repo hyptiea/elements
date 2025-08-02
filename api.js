@@ -5,7 +5,7 @@ class ApiDataDisplay extends HTMLElement {
     }
 
     connectedCallback() {
-        const apiUrl = this.getAttribute('api-url');
+        const apiUrl = this.getAttribute('api');
         if (apiUrl) {
             this.fetchData(apiUrl);
         }
