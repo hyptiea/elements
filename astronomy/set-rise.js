@@ -1,140 +1,139 @@
-function toRadians(angle) {
-    return angle * Math.PI / 180;
-}
-
-function calculateJulianDate(year, month, day) {
-    const a = Math.floor((14 - month) / 12);
-    const y = year + 4800 - a;
-    const m = month + 12 * a - 3;
-
-    let JD = day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4)
-        - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
-
-    return JD;
-}
-function calculateRiseSetTimes(ra, dec, latitude, date, longitude) {
-    // Hour angle in radians
-    const H_rad = calcHourAngle(dec, latitude);
-    if (H_rad === null) {
-        return { rise: 'circumpolar or never visible', set: 'circumpolar or never visible' };
+class RiseSetCalculator {
+    constructor(observerLat, observerLon) {
+        /**
+         * @param {number} observerLat - Breitengrad des Beobachters in Grad
+         * @param {number} observerLon - Längengrad des Beobachters in Grad (Ost positiv)
+         */
+        this.observerLat = this.toRadians(observerLat);
+        this.observerLon = this.toRadians(observerLon);
     }
 
-    // Convert hour angle from radians to hours
-    const H_hours = H_rad * 180 / Math.PI / 15;
-
-    // Calculate transit time (when object crosses meridian)
-    const transitTime = calculateTransitTime(ra, date, longitude);
-
-    // Rise and set times (in UTC)
-    const riseTime = new Date(transitTime.getTime() - H_hours * 3600000);
-    const setTime = new Date(transitTime.getTime() + H_hours * 3600000);
-
-    return { 
-        rise: riseTime, 
-        set: setTime,
-        transit: transitTime 
-    };
-}
-
-
-function calculateTransitTime(ra, date, longitude) {
-    // Calculate JD for 0h UT of the given date
-    const utcDate = new Date(date);
-    utcDate.setUTCHours(0, 0, 0, 0);
-
-    const year = utcDate.getUTCFullYear();
-    const month = utcDate.getUTCMonth() + 1;
-    const day = utcDate.getUTCDate();
-    const JD0 = calculateJulianDate(year, month, day);
-
-    // Calculate GMST at 0h UT (in hours)
-    const GMST0 = calculateGMST(JD0);
-
-    // *** FIX: Convert RA from degrees to hours before calculation ***
-    const ra_hours = ra / 15;
-
-    // Calculate when LST = RA to find transit time in UT
-    // The formula is UT = (RA - GMST0 - Longitude) corrected for sidereal time
-    let transitUT = (ra_hours - GMST0 - longitude / 15) / 1.002737909;
-
-    // Normalize to 0-24 hours
-    while (transitUT < 0) transitUT += 24;
-    while (transitUT >= 24) transitUT -= 24;
-
-    // Create transit time in UTC
-    const transitTime = new Date(utcDate);
-    // Use setUTCHours with fractional hours for better precision before converting
-    transitTime.setUTCHours(0, 0, 0, 0);
-    transitTime.setTime(transitTime.getTime() + transitUT * 3600000);
-
-    return transitTime;
-}
-
-
-function calculateGMST(julianDate) {
-    const T = (julianDate - 2451545.0) / 36525.0;
-    let GMST = 280.46061837 + 360.98564736629 * (julianDate - 2451545.0) + 
-               0.000387933 * T * T - T * T * T / 38710000.0;
-
-    GMST = GMST % 360;
-    if (GMST < 0) GMST += 360;
-
-    return GMST / 15; // Convert to hours
-}
-
-
-function lstToLocalTime(lst, date, longitude = 0, gmst0) {
-    // Calculate the difference between LST and GMST
-    const lstGmstDiff = lst - gmst0;
-
-    // Convert to UTC hours
-    let utcHours = lstGmstDiff - longitude / 15;
-
-    // Normalize to 0-24 range
-    while (utcHours < 0) utcHours += 24;
-    while (utcHours >= 24) utcHours -= 24;
-
-    // Create new date object for the result
-    const result = new Date(date);
-    result.setUTCHours(Math.floor(utcHours));
-    result.setUTCMinutes(Math.floor((utcHours % 1) * 60));
-    result.setUTCSeconds(0);
-    result.setUTCMilliseconds(0);
-
-    return result;
-}
-
-
-
-function calcHourAngle(dec, latitude, objectType = 'planet') {
-    // Different refraction corrections
-    const refractionCorrections = {
-        'sun': -0.833,      // Standard solar refraction
-        'moon': -0.7,       // Moon's varying size
-        'planet': -0.567,   // Point source
-        'star': -0.567      // Point source
-    };
-
-    const h0 = toRadians(refractionCorrections[objectType] || -0.567);
-    const decRad = toRadians(dec);
-    const latRad = toRadians(latitude);
-
-    const cosH = (Math.sin(h0) - Math.sin(decRad) * Math.sin(latRad))
-        / (Math.cos(decRad) * Math.cos(latRad));
-
-    if (Math.abs(cosH) > 1) {
-        return null;
+    toRadians(degrees) {
+        return degrees * Math.PI / 180;
     }
 
-    return Math.acos(cosH);
+    toDegrees(radians) {
+        return radians * 180 / Math.PI;
+    }
+
+    /**
+     * Umwandlung von RA/Dec zu Azimut/Elevation
+     * @param {number} ra - Rektaszension in Radians
+     * @param {number} dec - Deklination in Radians  
+     * @param {number} lst - Local Sidereal Time in Radians
+     * @returns {object} {azimuth, altitude} in Radians
+     */
+    equatorialToHorizontal(ra, dec, lst) {
+        const ha = lst - ra; // Stundenwinkel
+
+        const sinAlt = Math.sin(dec) * Math.sin(this.observerLat) + 
+                       Math.cos(dec) * Math.cos(this.observerLat) * Math.cos(ha);
+        const altitude = Math.asin(sinAlt);
+
+        let cosAz = (Math.sin(dec) - Math.sin(altitude) * Math.sin(this.observerLat)) / 
+                    (Math.cos(altitude) * Math.cos(this.observerLat));
+        cosAz = Math.max(-1, Math.min(1, cosAz)); // Clamp für numerische Stabilität
+
+        let azimuth = Math.acos(cosAz);
+        if (Math.sin(ha) > 0) {
+            azimuth = 2 * Math.PI - azimuth;
+        }
+
+        return { azimuth, altitude };
+    }
+
+    /**
+     * Berechnung der Local Sidereal Time
+     * @param {number} jd - Julian Date
+     * @returns {number} LST in Radians
+     */
+    calculateLST(jd) {
+        const t = (jd - 2451545.0) / 36525.0;
+        let gmst = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * t * t;
+        gmst = gmst % 360;
+        const lst = gmst + this.toDegrees(this.observerLon);
+        return this.toRadians(lst % 360);
+    }
+
+    /**
+     * Interpolation zwischen zwei Datenpunkten
+     * @param {Array} data - Array der Planetendaten
+     * @param {number} targetJD - Ziel Julian Date
+     * @returns {object} {ra, dec} in Radians
+     */
+    interpolateData(data, targetJD) {
+        for (let i = 0; i < data.length - 1; i++) {
+            if (data[i].jd <= targetJD && targetJD <= data[i + 1].jd) {
+                const t = (targetJD - data[i].jd) / (data[i + 1].jd - data[i].jd);
+
+                const ra = this.toRadians(parseFloat(data[i].ra) + t * 
+                          (parseFloat(data[i + 1].ra) - parseFloat(data[i].ra)));
+                const dec = this.toRadians(parseFloat(data[i].dec) + t * 
+                           (parseFloat(data[i + 1].dec) - parseFloat(data[i].dec)));
+
+                return { ra, dec };
+            }
+        }
+
+        // Fallback: letzter verfügbarer Wert
+        const lastData = data[data.length - 1];
+        return {
+            ra: this.toRadians(parseFloat(lastData.ra)),
+            dec: this.toRadians(parseFloat(lastData.dec))
+        };
+    }
+
+    /**
+     * Findet Auf- und Untergangszeiten für einen Tag
+     * @param {Array} data - Array der stündlichen Planetendaten
+     * @param {number} horizonAltitude - Höhe über Horizont in Grad (default: 0°)
+     * @returns {object} {riseTime, setTime} als Date-Objekte oder null
+     */
+    findRiseSetTimes(data, horizonAltitude = 0.0) {
+        const horizonAltRad = this.toRadians(horizonAltitude);
+
+        let riseTime = null;
+        let setTime = null;
+        let wasAboveHorizon = null;
+
+        // Prüfe alle 15 Minuten für bessere Genauigkeit
+        const stepSize = 1 / 96; // 15 Minuten in Tagen
+        const startJD = data[0].jd;
+        const endJD = data[data.length - 1].jd;
+
+        for (let jd = startJD; jd <= endJD; jd += stepSize) {
+            const { ra, dec } = this.interpolateData(data, jd);
+            const lst = this.calculateLST(jd);
+            const { altitude } = this.equatorialToHorizontal(ra, dec, lst);
+
+            const isAboveHorizon = altitude > horizonAltRad;
+
+            if (wasAboveHorizon !== null) {
+                // Aufgang: von unter zu über Horizont
+                if (!wasAboveHorizon && isAboveHorizon && !riseTime) {
+                    riseTime = this.jdToDate(jd);
+                }
+                // Untergang: von über zu unter Horizont
+                if (wasAboveHorizon && !isAboveHorizon && !setTime) {
+                    setTime = this.jdToDate(jd);
+                }
+            }
+
+            wasAboveHorizon = isAboveHorizon;
+        }
+
+        return { riseTime, setTime };
+    }
+
+    /**
+     * Konvertiert Julian Date zu JavaScript Date
+     * @param {number} jd - Julian Date
+     * @returns {Date} JavaScript Date Objekt
+     */
+    jdToDate(jd) {
+        return new Date((jd - 2440587.5) * 86400000);
+    }
 }
-
-
 export {
-    calculateRiseSetTimes,
-    calculateJulianDate,
-    calculateGMST,
-    calcHourAngle,
-    lstToLocalTime,
-    toRadians
+    RiseSetCalculator
 }
