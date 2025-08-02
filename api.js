@@ -31,4 +31,4 @@ class ApiDataDisplay extends HTMLElement {
 }
 
 // Define the new web component
-customElements.define('api-data-display', ApiDataDisplay);
+customElements.define('api-const', ApiDataDisplay);
