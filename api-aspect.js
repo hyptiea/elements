@@ -47,7 +47,7 @@ class ApiDataDisplay extends HTMLElement {
                 }
 
                 data.aspects.forEach(element => {
-                    html += `<a style="display: block;" href="https://hypteia.bearblog.dev/${de[element.body1].toLowerCase()}-${de[element.aspect_type].toLowerCase()}-${de[element.body2].toLowerCase()}"> ${de[element.body1]}  ${de[element.aspect_type]} ${de[element.body2]} <small>${element.orb_degrees}</small></a>`
+                    html += `<a style="display: block; color: inherit;" href="https://hypteia.bearblog.dev/${de[element.body1].toLowerCase()}-${de[element.aspect_type].toLowerCase()}-${de[element.body2].toLowerCase()}"> ${de[element.body1]}  ${de[element.aspect_type]} ${de[element.body2]} <small>${element.orb_degrees}</small></a>`
                 });
 
 
