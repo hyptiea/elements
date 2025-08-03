@@ -7,7 +7,8 @@ class ApiDataDisplay extends HTMLElement {
     connectedCallback() {
         const apiUrl = this.getAttribute('api');
         const planet = this.getAttribute('planet');
-        const date = this.getAttribute('date') || new Date().toISOString();
+        const dateAttribute = this.getAttribute('date');
+        const date = dateAttribute ? new Date(dateAttribute).toISOString() : new Date().toISOString();
 
         if (apiUrl) {
             this.fetchData(apiUrl, planet), date;
@@ -15,7 +16,13 @@ class ApiDataDisplay extends HTMLElement {
     }
 
     fetchData(url, planet, date) {
-        fetch(url + '?datetime=' + new Date(date).toISOString() + '&body=' + planet)
+        const dateObj = new Date(date);
+        if (isNaN(dateObj.getTime())) {
+            console.error('Invalid date:', date);
+            return; // Exit if date is invalid
+        }
+
+        fetch(`${url}?datetime=${dateObj.toISOString()}&body=${planet}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
