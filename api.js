@@ -7,20 +7,21 @@ class ApiDataDisplay extends HTMLElement {
     connectedCallback() {
         const apiUrl = this.getAttribute('api');
         const planet = this.getAttribute('planet');
-        const dateAttribute = this.getAttribute('date');
-        const date = dateAttribute ? new Date(dateAttribute).toISOString() : new Date().toISOString();
-
+        const dateAttribute = this.getAttribute('date');        
+        const date = dateAttribute ? new Date(dateAttribute).toISOString() : new Date().toISOString();        
         if (apiUrl) {
-            this.fetchData(apiUrl, planet), date;
+            this.fetchData(apiUrl, planet, date);
         }
     }
 
-    fetchData(url, planet, date) {
-        const dateObj = new Date(date);
+    fetchData(url, planet, date) {        
+        const dateObj = new Date(date);        
         if (isNaN(dateObj.getTime())) {
             console.error('Invalid date:', date);
             return; // Exit if date is invalid
         }
+        console.log(dateObj);
+        
 
         fetch(`${url}?datetime=${dateObj.toISOString()}&body=${planet}`)
             .then(response => {
