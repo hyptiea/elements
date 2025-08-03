@@ -32,11 +32,19 @@ class ApiDataDisplay extends HTMLElement {
 
                 const de = {
                     conjunction: 'Konjunktion',
-                    opposition: 'Opposition'
+                    opposition: 'Opposition',
+                    sun: 'Sonne',
+                    moon: 'Mond',
+                    mercury: 'Merkur',
+                    venus: 'Venus',
+                    mars: 'Mars',
+                    jupiter: 'Jupiter',
+                    hygiea: 'Hygiea',
+                    saturn: 'Saturn'
                 }
 
                 data.aspects.forEach(element => {
-                    html += `<p>${element.body1}  ${de[element.aspect_type]} ${element.body2} <small>${element.orb_degrees}</small></p>`
+                    html += `<a style="display: block;" href="https://hypteia.bearblog.dev/${de[element.body1].toLowerCase()}-${de[element.aspect_type].toLowerCase()}-${de[element.body2].toLowerCase()}"> ${de[element.body1]}  ${de[element.aspect_type]} ${de[element.body2]} <small>${element.orb_degrees}</small></a>`
                 });
 
 
