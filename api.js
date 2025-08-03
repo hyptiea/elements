@@ -19,10 +19,7 @@ class ApiDataDisplay extends HTMLElement {
         if (isNaN(dateObj.getTime())) {
             console.error('Invalid date:', date);
             return; // Exit if date is invalid
-        }
-        console.log(dateObj);
-        
-
+        }        
         fetch(`${url}?datetime=${dateObj.toISOString()}&body=${planet}`)
             .then(response => {
                 if (!response.ok) {
@@ -32,7 +29,7 @@ class ApiDataDisplay extends HTMLElement {
             })
             .then(data => {
                 // Display the fetched data as a bold string
-                this.shadowRoot.innerHTML = `<strong>${data.constellation}</strong>`;
+                this.shadowRoot.innerHTML = `<strong>${data.constellation}</strong> <small>(${data.ra_degrees.toFixed(2)})</small>`;
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
