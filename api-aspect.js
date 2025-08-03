@@ -39,8 +39,11 @@ class ApiDataDisplay extends HTMLElement {
                     venus: 'Venus',
                     mars: 'Mars',
                     jupiter: 'Jupiter',
+                    saturn: 'Saturn',
+                    uranus: 'Uranus',
+                    neptune: 'Neptune',   
                     hygiea: 'Hygiea',
-                    saturn: 'Saturn'
+                    flora: 'Flora',
                 }
 
                 data.aspects.forEach(element => {
