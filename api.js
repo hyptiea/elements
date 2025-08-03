@@ -6,13 +6,15 @@ class ApiDataDisplay extends HTMLElement {
 
     connectedCallback() {
         const apiUrl = this.getAttribute('api');
+        const planet = this.getAttribute('planet');
+
         if (apiUrl) {
-            this.fetchData(apiUrl);
+            this.fetchData(apiUrl, planet);
         }
     }
 
-    fetchData(url) {
-        fetch(url + '?datetime=' + new Date().toISOString())
+    fetchData(url, planet) {
+        fetch(url + '?datetime=' + new Date().toISOString() + '&body=' + planet)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
