@@ -28,7 +28,7 @@ class ApiDataDisplay extends HTMLElement {
                 return response.json();
             })
             .then(data => {
-                const html = ''
+                let html = ''
 
                 const de = {
                     conjunction: 'Konjunktion',
@@ -36,7 +36,7 @@ class ApiDataDisplay extends HTMLElement {
                 }
 
                 data.aspects.forEach(element => {
-                    html+= `<p>${element.body1}  ${de[element.aspect_type]} ${element.body2} <small>${element.orb_degrees}</small></p>`
+                    html += `<p>${element.body1}  ${de[element.aspect_type]} ${element.body2} <small>${element.orb_degrees}</small></p>`
                 });
 
 
